@@ -1,0 +1,139 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'boot 5/css/bootstrap.css' %}">
+  <title>Todo App</title>
+  <style>
+    body {
+      margin: 0;
+      min-width: 250px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    ol {
+      margin: 0;
+      padding: 0;
+      margin-left: 0%;
+    }
+
+    ol li {
+      cursor: pointer;
+      position: relative;
+      padding: 12px 8px 12px 40px;
+      list-style-type: none;
+      background: #eee;
+      font-size: 18px;
+      transition: 0.2s;
+      margin-bottom: 7px;
+      margin-left: 0%;
+    }
+
+    ol li:nth-child(odd) {
+      background: #f9f9f9;
+    }
+
+    ol li:hover {
+      background: #ddd;
+    }
+
+
+    /* Style the close button */
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 12px 16px 12px 16px;
+      color: black;
+      text-decoration: none;
+      background-color: #f44336;
+      color: white;
+    }
+
+    /* Style the header */
+    .header {
+      background-color: #f44336;
+      padding: 30px 40px;
+      color: white;
+      text-align: center;
+    }
+
+    /* Clear floats after the header */
+    .header:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Style the input */
+    input[type=text] {
+      margin: 0;
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      width: 75%;
+      padding: 10px;
+      float: left;
+      font-size: 16px;
+    }
+
+    /* Style the "Add" button */
+    .addBtn {
+      padding: 10px;
+      width: 25%;
+      background: #d9d9d9;
+      color: #555;
+      float: left;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+    }
+
+    .addBtn:hover {
+      background-color: #bbb;
+    }
+
+    ol li.strike {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  {% for messages in messages %}
+  <div class="alert alert-danger alert-dismissible fade show">
+    <p style="text-align: center;">{{messages}}</p>
+  </div>
+  {% endfor %}
+  <div id="myDIV" class="header">
+
+    <form action="" method="POST">
+      {% csrf_token %}
+      <h2 style="margin:5px;">Django -To Do List</h2>
+      <input type="text" style="text-transform: capitalize;" name="title" placeholder="Add Task...">
+      <input type="submit" class="addBtn" value="Add">
+    </form>
+  </div>
+  {% for todos in todos reversed %}
+  <ol id="ol">
+    <li style="display: flex;" id="li" onclick="strikeList()">
+      {{todos.title}}
+      <a href="delete/{{todos.id}}" class="close">X</a>
+    </li>
+  </ol>
+  {% endfor %}
+
+ 
+</body>
+
+</html>
